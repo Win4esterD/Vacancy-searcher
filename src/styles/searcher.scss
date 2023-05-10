@@ -1,0 +1,130 @@
+@import './mixins/font.scss';
+
+.search-and-result{
+  position: relative;
+}
+
+.search{
+  width: 773px;
+  height: 48px;
+  background: #FFFFFF;
+  border: 1px solid #EAEBED;
+  border-radius: 0.5rem;
+  @include fontTemplate("Inter", normal, 400, 0.875rem, 1.3125rem);
+}
+
+.search:focus{
+  padding-left: 2.25rem;
+}
+
+.search:focus::placeholder{
+  color: transparent;
+}
+
+.search::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color:    #ACADB9;
+  padding-left: 2.25rem;
+}
+
+.search:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+ color:    #ACADB9;
+ padding-left: 2.25rem;
+ opacity:  1;
+}
+
+.search::-moz-placeholder { /* Mozilla Firefox 19+ */
+ color:    #ACADB9;
+ padding-left: 2.25rem;
+ opacity:  1;
+}
+
+.search:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color:    #ACADB9;
+ padding-left: 2.25rem;
+}
+
+.search::-ms-input-placeholder { /* Microsoft Edge */
+ color:    #ACADB9;
+ padding-left: 2.25rem;
+}
+
+.search::placeholder { /* Most modern browsers support this now. */
+ color:    #ACADB9;
+ padding-left: 2.25rem;
+}
+
+.search-icon{
+  position: absolute;
+  top: 1rem;
+  left: 0.9rem;
+}
+
+.search-button{
+  width: 5.1875rem;
+  height: 2rem;
+  background: #5E96FC;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.25rem 1.25rem;
+  @include fontTemplate("Inter", normal, 500, 0.875rem, 1.3125rem);
+  color: #FFFFFF;
+  position: absolute;
+  left: 42.4rem;
+  top: 0.5rem;
+}
+
+.result-block{
+  position: relative;
+  width: 48.3125rem;
+  height: 8.5625rem;
+  background: #FFFFFF;
+  border: 1px solid #EAEBED;
+  border-radius: 12px;
+  margin-top: 0.93rem;
+}
+
+.result-inner-block{
+  position: relative;
+  top: 1.56rem;
+  left: 1.5rem;
+}
+
+.job-name{
+  @include fontTemplate("Inter", normal, 600, 1.25rem, 1.5rem);
+  text-decoration: none;
+  color: #5E96FC;
+}
+
+.favourite{
+  position: absolute;
+  left: 43.8rem;
+}
+
+.conditions{
+  display: flex;
+  margin-top: 0.8rem;
+  gap: 0.8rem;
+}
+
+.spot{
+  color: #7B7C88;
+}
+
+.salary-offer{
+  @include fontTemplate("Inter", normal, 600, 1rem, 1.25rem);
+}
+
+.working-day{
+  @include fontTemplate("Inter", normal, 400, 1rem, 1.25rem);
+}
+
+.geolocation{
+  display: flex;
+  gap: 0.5rem;
+  position: relative;
+  top: 0.8rem;
+}
+
+.location-name{
+  @include fontTemplate("Inter", normal, 400, 1rem, 1.1875rem);
+}

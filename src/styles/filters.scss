@@ -1,0 +1,149 @@
+@import './mixins/font.scss';
+
+.filters-wrapper{
+  width: 19.6875rem;
+  height: 22.5rem;
+  background: #FFFFFF;
+  border: 1px solid #EAEBED;
+  border-radius: 12px;
+  // margin: 40px 0 0 162px;
+  //Удалить отступы при дальнейшей вёрстке
+}
+
+.filter-menu{
+  position: relative;
+  width: 17.1875rem;
+  height: 20rem;
+  top: 1.25rem;
+  left: 1.25rem;
+}
+
+.filter-menu-head{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5625rem;
+}
+
+.filters{
+  @include fontTemplate('Inter', normal, 700, 1.25rem, 1.25rem);
+}
+
+.drop-all{
+  @include fontTemplate('Inter', normal, 500, 0.875rem, 1.25rem);
+  color: #ACADB9;
+
+  img{
+    cursor: pointer;
+  }
+}
+
+.industry{
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.industry-header{
+  @include fontTemplate('Inter', normal, 700, 1rem, 1.1875rem);
+}
+
+.industry-selector{
+  -moz-appearance: none;
+  appearance: none;
+  width: 17.1875rem;
+  height: 2.625rem;
+  background: #FFFFFF;
+  border: 1px solid #D5D6DC;
+  border-radius: 8px;
+  font-family: 'Inter';
+  color: #ACADB9;
+  padding-left: 10px;
+  background: url('../../public/assets/img/selection-arrow.png') no-repeat right;
+  background-position-x: 14.8125rem;
+  -webkit-appearance: none;
+}
+
+.industry-option{
+  @include fontTemplate('Inter', normal, 400, 0.875rem, 1.25rem);
+  width: 17.1875rem;
+  height: 2.625rem;
+  background: #FFFFFF;
+  border: 1px solid #D5D6DC;
+  border-radius: 8px;
+  font-family: 'Inter';
+  color: #ACADB9;
+  padding-left: 7px;
+
+}
+
+.salary-inputs{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 20px;
+}
+
+.salary{
+  @include fontTemplate('Inter', normal, 700, 1rem, 1.1875rem);
+}
+
+.salary-counter{
+  width: 275px;
+  height: 42px;
+  background: #FFFFFF;
+  border: 1px solid #D5D6DC;
+  border-radius: 8px;
+  padding-left: 11px;
+  @include fontTemplate('Inter', normal, 400, 0.875rem, 1.25rem);
+}
+
+input[type="number"] {
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+}
+
+.up-down-min-arrows{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 11rem;
+  left: 15.6875rem;
+}
+
+.up-down-max-arrows{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 14.1rem;
+  left: 15.6875rem;
+}
+
+.up-arrow:hover{
+  cursor: pointer;
+}
+
+.down-arrow:hover{
+  cursor: pointer;
+}
+
+.filters-submit{
+  margin-top: 1.125rem;
+  width: 17.1875rem;
+  height: 2.5rem;
+  background: #5E96FC;
+  border-radius: 8px;
+  border: none;
+  @include fontTemplate('Inter', normal, 500, 0.875rem, 1.3125rem);
+  text-align: center;
+  color: #FFFFFF;
+}
+
