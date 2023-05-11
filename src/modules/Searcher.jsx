@@ -3,20 +3,37 @@ import '../styles/searcher.scss';
 
 class Searcher extends React.Component{
 
-  state = {
-    vacancies: [],
+  constructor(props){
+    super(props);
+    this.state = {
+      vacancies: [],
+    }
   }
 
   async componentDidMount(){
-    const link = "https://startup-summer-2023-proxy.onrender.com/2.0/"
+    const link = "https://startup-summer-2023-proxy.onrender.com/2.0/vacancies/"
     // this.link2 = "https://api.superjob.ru/2.0/";
-    const response = await this.requestVacancies(link + 'vacancies/');
+    const response = await this.requestVacancies(link);
     const result = response.objects;
-    console.log(result)
-    
     this.setState({vacancies: result.map((item, index) => {
       return this.getVacancy(item, index + 1);
     })}) 
+  }
+
+  async componentDidUpdate(){
+    const link = "https://startup-summer-2023-proxy.onrender.com/2.0/vacancies/";
+    const response = await this.requestVacancies(link + this.props.filterLink);
+    const result = response.objects;
+    this.setState({vacancies: result.map((item, index) => {
+      return this.getVacancy(item, index + 1);
+    })}) 
+  }
+
+  componentWillUnmount(){
+    const oldVacancies = document.querySelectorAll('.result-wrapper');
+    oldVacancies.forEach((element) => {
+      element.remove();
+    })
   }
   
   async requestVacancies(url){
@@ -30,9 +47,7 @@ class Searcher extends React.Component{
   });
 
 
-    if (response.ok) { // если HTTP-статус в диапазоне 200-299
-      // получаем тело ответа (см. про этот метод ниже)
-      // let json = await response.json();
+    if (response.ok) {
       const content = await response.json();
       return content;
     }else {
@@ -40,15 +55,16 @@ class Searcher extends React.Component{
     }
   }
 
+  //Determines, what salary to show in the vacancy block
   determinePayment(obj){
     if(obj.payment_from && obj.payment_to){
       return `з/п ${obj.payment_from} - ${obj.payment_to}`;
     }else if(obj.payment_from && !obj.payment_to){
       return `з/п от ${obj.payment_from}`;
     }else if(!obj.payment_from && obj.payment_to){
-      return `з/п до ${obj.payment_to}`
+      return `з/п до ${obj.payment_to}`;
     }else{
-      return `з/п ${obj.payment || " Не указана"}`
+      return `з/п ${" Не указана"}`;
     }
   }
 
@@ -76,11 +92,6 @@ class Searcher extends React.Component{
     )
   }
 
-  
-
-  
-
-
   render(){
     return(
       <section className="search-and-result">
@@ -88,25 +99,6 @@ class Searcher extends React.Component{
           <input type="text" className="search" placeholder="Введите название вакансии"/>
           <img src="./assets/img/search-icon.png" alt="search icon" className="search-icon" />
           <button className="search-button">Поиск</button>
-        </div>
-        <div className="result-wrapper">
-          <div className="result-block">
-            <div className="result-inner-block">
-              <a href="#" className="job-name">
-                Менеджер по продажам
-              </a>
-              <img className="favourite" src="./assets/img/star-not-selected.png" alt="favourite" />
-              <div className="conditions">
-                <p className="salary-offer">з/п от 70000 rub</p>
-                <p className="spot">•</p>
-                <p className="working-day">Полный рабочий день</p>
-              </div>
-              <div className="geolocation">
-                <img src="./assets/img/geo-logo.png" alt="geo-logo" width="20px" height="20px" className="geo-logo" />
-                <p className="location-name">Новый Уренгой</p>
-              </div>
-            </div>
-          </div>
         </div>
         {this.state.vacancies}
       </section>

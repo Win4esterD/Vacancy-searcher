@@ -11,7 +11,11 @@
   border: 1px solid #EAEBED;
   border-radius: 0.5rem;
   @include fontTemplate("Inter", normal, 400, 0.875rem, 1.3125rem);
+  vertical-align: top;
+  padding-left: 2.25rem;
 }
+
+
 
 .search:focus{
   padding-left: 2.25rem;
@@ -23,34 +27,28 @@
 
 .search::-webkit-input-placeholder { /* WebKit, Blink, Edge */
   color:    #ACADB9;
-  padding-left: 2.25rem;
 }
 
 .search:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
  color:    #ACADB9;
- padding-left: 2.25rem;
  opacity:  1;
 }
 
 .search::-moz-placeholder { /* Mozilla Firefox 19+ */
  color:    #ACADB9;
- padding-left: 2.25rem;
  opacity:  1;
 }
 
 .search:-ms-input-placeholder { /* Internet Explorer 10-11 */
  color:    #ACADB9;
- padding-left: 2.25rem;
 }
 
 .search::-ms-input-placeholder { /* Microsoft Edge */
  color:    #ACADB9;
- padding-left: 2.25rem;
 }
 
 .search::placeholder { /* Most modern browsers support this now. */
  color:    #ACADB9;
- padding-left: 2.25rem;
 }
 
 .search-icon{

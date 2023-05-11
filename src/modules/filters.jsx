@@ -4,15 +4,30 @@ import '../styles/filters.scss';
 class Filters extends React.Component{
   constructor(props){
     super(props);
+    this.state = {
+      industries: [],
+      requestLink: '',
+    }
+
     this.addNumberToMinInput = this.addNumberToMinInput.bind(this);
     this.substractNumberFromMinInput = this.substractNumberFromMinInput.bind(this);
     this.addNumberToMaxInput = this.addNumberToMaxInput.bind(this);
     this.substractNumberFromMaxInput = this.substractNumberFromMaxInput.bind(this);
+    this.acceptFilters = this.acceptFilters.bind(this);
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     const minInput = document.querySelector('.min-counter');
     const maxInput = document.querySelector('.max-counter');
+    const industries = await this.getIndustries();
+
+
+    this.setState({industries:industries.map((item) => {
+      return (
+        <option className="industry-option" key={item.key} value={item.key}>{item.title_rus}</option>
+      )
+    }) })
+
     minInput.addEventListener('change', () => {
       if(Number(minInput.value) < 0){
         minInput.value = 0;
@@ -24,6 +39,22 @@ class Filters extends React.Component{
         maxInput.value = 0;
       }
     })
+  }
+
+  async getIndustries(){
+    const industries = await fetch('https://startup-summer-2023-proxy.onrender.com/2.0/catalogues/', {
+      headers: {
+        'x-secret-key': 'GEU4nvd3rej*jeh.eqp',
+        'X-Api-App-Id': 'v3.r.137440105.ffdbab114f92b821eac4e21f485343924a773131.06c3bdbb8446aeb91c35b80c42ff69eb9c457948',
+      },
+      head: JSON.stringify({a: 1, b: 'Textual content'})
+    });
+
+    if(industries.ok){
+      return await industries.json();
+    }else{
+      console.log("Ошибка HTTP: " + industries.status)
+    }
   }
 
   addNumberToMinInput(){
@@ -50,6 +81,16 @@ class Filters extends React.Component{
     }
   }
 
+  acceptFilters(){
+    const industry = document.querySelector('.industry-select');
+    const minInput = document.querySelector('.min-counter');
+    const maxInput = document.querySelector('.max-counter');
+    const keywordInput = document.querySelector('.search');
+    
+    const resultLink = `?catalogues=${industry.value}&&payment_from=${minInput.value}&&payment_to=${maxInput.value}&&keyword=${keywordInput.value}`;
+    this.props.getFilters(resultLink);
+  }
+
   render(){
     return(
       <aside className="filters-aside-menu">
@@ -61,9 +102,10 @@ class Filters extends React.Component{
             </div>
             <div className="industry">
               <p className="industry-header">Отрасль</p>
-              <select className="industry-selector" name="industry-selector" id="industry-selector">
-                <option className="industry-option" value="">Выберите отрасль
+              <select className="industry-select" name="industry-selector" id="industry-selector">
+                <option className="industry-option" value="Выберите отрасль">Выберите отрасль
                 </option>
+                {this.state.industries}
               </select>
             </div>
             <div className="salary-inputs">
@@ -80,7 +122,7 @@ class Filters extends React.Component{
               <input className="salary-counter max-counter" type="number" name="to" placeholder="До" />
             </div>
 
-            <button type="submit" className="filters-submit">Применить</button>
+            <button type="submit" className="filters-submit" onClick={this.acceptFilters}>Применить</button>
           </div>
         </div>
       </aside>

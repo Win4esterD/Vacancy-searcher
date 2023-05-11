@@ -5,11 +5,24 @@ import '../styles/main.scss';
 
 class Main extends React.Component{
 
+  constructor(props){
+    super(props);
+    this.state = {
+      filters: '',
+    }
+
+    this.getFilters = this.getFilters.bind(this);
+  }
+
+  getFilters(value){
+    this.setState({filters: value});
+  }
+
   render(){
     return(
       <main>
-        <Filters />
-        <Searcher />
+        <Filters getFilters={this.getFilters}/>
+        <Searcher filterLink={this.state.filters}/>
       </main>
     )
   }
