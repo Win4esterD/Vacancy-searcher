@@ -2,11 +2,21 @@ import * as React from "react";
 import '../styles/searcher.scss';
 
 class Searcher extends React.Component{
+
+  state = {
+    vacancies: [],
+  }
+
   async componentDidMount(){
     const link = "https://startup-summer-2023-proxy.onrender.com/2.0/"
-    let result = await this.requestVacancies(link + 'vacancies');
+    // this.link2 = "https://api.superjob.ru/2.0/";
+    const response = await this.requestVacancies(link + 'vacancies/');
+    const result = response.objects;
     console.log(result)
-
+    
+    this.setState({vacancies: result.map((item, index) => {
+      return this.getVacancy(item, index + 1);
+    })}) 
   }
   
   async requestVacancies(url){
@@ -30,6 +40,46 @@ class Searcher extends React.Component{
     }
   }
 
+  determinePayment(obj){
+    if(obj.payment_from && obj.payment_to){
+      return `з/п ${obj.payment_from} - ${obj.payment_to}`;
+    }else if(obj.payment_from && !obj.payment_to){
+      return `з/п от ${obj.payment_from}`;
+    }else if(!obj.payment_from && obj.payment_to){
+      return `з/п до ${obj.payment_to}`
+    }else{
+      return `з/п ${obj.payment || " Не указана"}`
+    }
+  }
+
+  getVacancy(obj, num){
+    return(
+      <div className="result-wrapper" key={num}>
+          <div className="result-block">
+            <div className="result-inner-block">
+              <a href="#" className="job-name">
+                {obj.profession}
+              </a>
+              <img className="favourite" src="./assets/img/star-not-selected.png" alt="favourite" />
+              <div className="conditions">
+                <p className="salary-offer">{this.determinePayment(obj)} {obj.currency}</p>
+                <p className="spot">•</p>
+                <p className="working-day">{obj.type_of_work.title}</p>
+              </div>
+              <div className="geolocation">
+                <img src="./assets/img/geo-logo.png" alt="geo-logo" width="20px" height="20px" className="geo-logo" />
+                <p className="location-name">{obj.town.title}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    )
+  }
+
+  
+
+  
+
 
   render(){
     return(
@@ -43,7 +93,7 @@ class Searcher extends React.Component{
           <div className="result-block">
             <div className="result-inner-block">
               <a href="#" className="job-name">
-                Менеджер-дизайнер
+                Менеджер по продажам
               </a>
               <img className="favourite" src="./assets/img/star-not-selected.png" alt="favourite" />
               <div className="conditions">
@@ -58,6 +108,7 @@ class Searcher extends React.Component{
             </div>
           </div>
         </div>
+        {this.state.vacancies}
       </section>
     )
   }
