@@ -18,11 +18,12 @@ class Main extends React.Component{
     this.setState({filters: value});
   }
 
+
   render(){
     return(
       <main>
         <Filters getFilters={this.getFilters}/>
-        <Searcher filterLink={this.state.filters}/>
+        <Searcher filterLink={this.state.filters} />
       </main>
     )
   }

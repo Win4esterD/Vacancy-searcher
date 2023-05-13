@@ -1,5 +1,7 @@
 import * as React from "react";
 import '../styles/searcher.scss';
+import SearchInput from "./Search-input";
+import Paginator from "./Paginator";
 
 class Searcher extends React.Component{
 
@@ -7,26 +9,33 @@ class Searcher extends React.Component{
     super(props);
     this.state = {
       vacancies: [],
+      selectedPageIndex: 0,
+      filterLink: '',
     }
+
+    this.getSelectedPage = this.getSelectedPage.bind(this);
+    this.setVacancies = this.setVacancies.bind(this);
   }
 
-  async componentDidMount(){
+  componentDidMount(){
+    this.setVacancies();
+  }
+
+  componentDidUpdate(){
+    this.setVacancies(this.props.filterLink);
+  }
+
+
+
+  async setVacancies(url){
     const link = "https://startup-summer-2023-proxy.onrender.com/2.0/vacancies/"
-    // this.link2 = "https://api.superjob.ru/2.0/";
-    const response = await this.requestVacancies(link);
-    const result = response.objects;
-    this.setState({vacancies: result.map((item, index) => {
-      return this.getVacancy(item, index + 1);
-    })}) 
-  }
+    const response = await this.requestVacancies(link + url);
 
-  async componentDidUpdate(){
-    const link = "https://startup-summer-2023-proxy.onrender.com/2.0/vacancies/";
-    const response = await this.requestVacancies(link + this.props.filterLink);
-    const result = response.objects;
-    this.setState({vacancies: result.map((item, index) => {
-      return this.getVacancy(item, index + 1);
-    })}) 
+    if(response){
+      this.setState({vacancies: response.map((item, index) => {
+        return this.generateVacancy(item, index + 1);
+      })}) 
+    }
   }
 
   componentWillUnmount(){
@@ -36,6 +45,7 @@ class Searcher extends React.Component{
     })
   }
   
+  //Makes a request to the server to fetch Array with vacancie objects
   async requestVacancies(url){
 
     let response = await fetch(url, {
@@ -49,7 +59,7 @@ class Searcher extends React.Component{
 
     if (response.ok) {
       const content = await response.json();
-      return content;
+      return content.objects;
     }else {
       console.log("Ошибка HTTP: " + response.status);
     }
@@ -68,7 +78,8 @@ class Searcher extends React.Component{
     }
   }
 
-  getVacancy(obj, num){
+  //generates vacancy to upload it to the view page
+  generateVacancy(obj, num){
     return(
       <div className="result-wrapper" key={num}>
           <div className="result-block">
@@ -92,15 +103,32 @@ class Searcher extends React.Component{
     )
   }
 
+  //dives into "Paginator" as prop, to pull the selected page
+  getSelectedPage(index){
+    this.setState({selectedPageIndex: index})
+  }
+
+  //Shows vacancies according to selected page
+  showVacanciesAccordingToSelectedPage(){
+    if(this.state.selectedPageIndex === 0){
+      return this.state.vacancies.slice(0, 4);
+    }
+    else if(this.state.selectedPageIndex === 1){
+      return this.state.vacancies.slice(4, 8);
+    }else if(this.state.selectedPageIndex === 2){
+      return this.state.vacancies.slice(8, 12);
+    }else{
+      return this.state.vacancies.slice(12, 16);
+    }
+  }
+
+
   render(){
     return(
       <section className="search-and-result">
-        <div className="search-input-wrapper">
-          <input type="text" className="search" placeholder="Введите название вакансии"/>
-          <img src="./assets/img/search-icon.png" alt="search icon" className="search-icon" />
-          <button className="search-button">Поиск</button>
-        </div>
-        {this.state.vacancies}
+       <SearchInput />
+        {this.showVacanciesAccordingToSelectedPage()}
+        <Paginator vacanciesLength={this.state.vacancies.length} getSelectedPage={this.getSelectedPage}/>
       </section>
     )
   }

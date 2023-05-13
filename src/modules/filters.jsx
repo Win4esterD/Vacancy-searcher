@@ -20,6 +20,10 @@ class Filters extends React.Component{
     const minInput = document.querySelector('.min-counter');
     const maxInput = document.querySelector('.max-counter');
     const industries = await this.getIndustries();
+    
+    // const searchInput = document.querySelector('.search-button');
+
+    // searchInput.addEventListener('click', this.acceptFilters);
 
 
     this.setState({industries:industries.map((item) => {
@@ -87,7 +91,16 @@ class Filters extends React.Component{
     const maxInput = document.querySelector('.max-counter');
     const keywordInput = document.querySelector('.search');
     
-    const resultLink = `?catalogues=${industry.value}&&payment_from=${minInput.value}&&payment_to=${maxInput.value}&&keyword=${keywordInput.value}`;
+    const minSalary = parseInt(minInput.value)? minInput.value: '0';
+    const maxSalary = parseInt(maxInput.value)? maxInput.value: '0';
+    const keyword = keywordInput.value? `&&keyword=${keywordInput.value}`: '';
+    let industryQuery = '';
+
+    if(industry.value !== "Выберите отрасль"){
+      industryQuery = `&&catalogues=${industry.value}`;
+    }
+
+    const resultLink = `?payment_from=${minSalary}&&payment_to=${maxSalary}${keyword}${industryQuery}&&published=1`;
     this.props.getFilters(resultLink);
   }
 

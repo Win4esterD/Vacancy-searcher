@@ -1,0 +1,69 @@
+@import './mixins/font.scss';
+
+.search{
+  width: 773px;
+  height: 48px;
+  background: #FFFFFF;
+  border: 1px solid #EAEBED;
+  border-radius: 0.5rem;
+  @include fontTemplate("Inter", normal, 400, 0.875rem, 1.3125rem);
+  vertical-align: top;
+  padding-left: 2.25rem;
+}
+
+
+
+.search:focus{
+  padding-left: 2.25rem;
+}
+
+.search:focus::placeholder{
+  color: transparent;
+}
+
+.search::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color:    #ACADB9;
+}
+
+.search:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+ color:    #ACADB9;
+ opacity:  1;
+}
+
+.search::-moz-placeholder { /* Mozilla Firefox 19+ */
+ color:    #ACADB9;
+ opacity:  1;
+}
+
+.search:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color:    #ACADB9;
+}
+
+.search::-ms-input-placeholder { /* Microsoft Edge */
+ color:    #ACADB9;
+}
+
+.search::placeholder { /* Most modern browsers support this now. */
+ color:    #ACADB9;
+}
+
+.search-icon{
+  position: absolute;
+  top: 1rem;
+  left: 0.9rem;
+}
+
+.search-button{
+  width: 5.1875rem;
+  height: 2rem;
+  background: #5E96FC;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.25rem 1.25rem;
+  @include fontTemplate("Inter", normal, 500, 0.875rem, 1.3125rem);
+  color: #FFFFFF;
+  position: absolute;
+  left: 42.4rem;
+  top: 0.5rem;
+  cursor: pointer;
+}

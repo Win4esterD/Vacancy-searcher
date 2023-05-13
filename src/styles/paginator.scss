@@ -1,0 +1,38 @@
+@import './mixins/font.scss';
+
+.pages-wrapper{
+  display: flex;
+  gap: 0.5rem;
+  position: relative;
+  left: 18.1rem;
+  top: 2.8rem;
+}
+
+.page{
+  width: 2rem;
+  height: 2rem;
+  background: #FFFFFF;
+  border: 1px solid #D5D6DC;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  @include fontTemplate('Roboto', normal, 400, 1rem, 2.25rem);
+  line-height: 140%;
+  text-align: center;
+  padding-top: 2px;
+}
+
+
+#page-selected{
+  background: #5E96FC;
+  color: #FFFFFF;
+}
+
+.arrow-left{
+  color: #D5D6DC;
+  font-size: 1rem;
+}
+
+.arrow-right{
+  color: #7B7C88;
+  font-size: 1rem;
+}
