@@ -20,10 +20,12 @@ class Filters extends React.Component{
     const minInput = document.querySelector('.min-counter');
     const maxInput = document.querySelector('.max-counter');
     const industries = await this.getIndustries();
+    const filtersButton = document.querySelector('.filters-submit');
+    filtersButton.addEventListener('click', this.acceptFilters);
     
-    // const searchInput = document.querySelector('.search-button');
+    const searchInput = document.querySelector('.search-button');
 
-    // searchInput.addEventListener('click', this.acceptFilters);
+    searchInput.addEventListener('click', this.acceptFilters);
 
 
     this.setState({industries:industries.map((item) => {
@@ -135,7 +137,7 @@ class Filters extends React.Component{
               <input className="salary-counter max-counter" type="number" name="to" placeholder="До" />
             </div>
 
-            <button type="submit" className="filters-submit" onClick={this.acceptFilters}>Применить</button>
+            <button type="submit" className="filters-submit">Применить</button>
           </div>
         </div>
       </aside>

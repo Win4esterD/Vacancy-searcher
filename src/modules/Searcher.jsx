@@ -22,7 +22,10 @@ class Searcher extends React.Component{
   }
 
   componentDidUpdate(){
-    this.setVacancies(this.props.filterLink);
+    const filterButton = document.querySelector('.filters-submit');
+    filterButton.addEventListener('click', () => {
+      this.setVacancies(this.props.filterLink);
+    })
   }
 
 
@@ -36,13 +39,6 @@ class Searcher extends React.Component{
         return this.generateVacancy(item, index + 1);
       })}) 
     }
-  }
-
-  componentWillUnmount(){
-    const oldVacancies = document.querySelectorAll('.result-wrapper');
-    oldVacancies.forEach((element) => {
-      element.remove();
-    })
   }
   
   //Makes a request to the server to fetch Array with vacancie objects
