@@ -104,6 +104,9 @@ class Filters extends React.Component{
 
     const resultLink = `?payment_from=${minSalary}&&payment_to=${maxSalary}${keyword}${industryQuery}&&published=1`;
     this.props.getFilters(resultLink);
+
+    const page = document.querySelector('.first-page');
+    
   }
 
   render(){
@@ -113,7 +116,7 @@ class Filters extends React.Component{
           <div className="filter-menu">
             <div className="filter-menu-head">
               <p className="filters">Фильтры</p>
-              <p className="drop-all">Сбросить все <span><img src="./assets/img/cross.png" alt="cross" /></span></p>
+              <p className="drop-all">Сбросить все <span><img className="cross" src="./assets/img/cross.png" alt="cross" /></span></p>
             </div>
             <div className="industry">
               <p className="industry-header">Отрасль</p>

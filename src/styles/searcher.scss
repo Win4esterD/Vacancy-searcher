@@ -4,6 +4,7 @@
   position: relative;
 }
 
+
 .result-block{
   position: relative;
   width: 48.3125rem;
@@ -18,12 +19,14 @@
   position: relative;
   top: 1.56rem;
   left: 1.5rem;
+  width: 43.75rem;
 }
 
 .job-name{
   @include fontTemplate("Inter", normal, 600, 1.25rem, 1.5rem);
   text-decoration: none;
   color: #5E96FC;
+  cursor: pointer;
 }
 
 .favourite{
@@ -58,4 +61,44 @@
 
 .location-name{
   @include fontTemplate("Inter", normal, 400, 1rem, 1.1875rem);
+}
+
+
+@media (max-width: 1280px){
+  .filters-aside-menu{
+    position: relative;
+    left: -2.5rem;
+  }
+
+  .search-and-result{
+    left: -3rem;
+  }
+}
+
+@media (max-width: 848px){
+  .location-name{
+    position: relative;
+    top: 0.7rem;
+  }
+}
+
+@media (max-width: 720px){
+  .favourite{
+    position: absolute;
+    left: 41rem;
+  }
+}
+
+@media (max-width: 620px){
+  .geo-logo{
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+}
+
+@media (max-width: 386px){
+  .favourite{
+    width: 3rem;
+    height: 3rem;
+  }
 }

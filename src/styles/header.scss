@@ -10,11 +10,12 @@ header{
   flex-direction: row;
   align-items: center;
   padding: 0px;
-  gap: 12px;
+  gap: 0.75rem;
   position: relative;
   top: 1.5rem;
   left: 10.125rem;
   width: 9.375rem;
+  cursor: pointer;
 }
 
 .logo{
@@ -46,4 +47,23 @@ header{
   @include fontTemplate('Inter', normal, 400, 1rem, 1.25rem);
   color: #232134;
   cursor: pointer;
+}
+
+@media (max-width: 780px){
+  .interface{
+    top: -1.3rem;
+  }
+}
+
+@media (max-width: 620px){
+  .interface{
+    top: -1.75rem;
+  }
+}
+
+@media (max-width: 464px){
+  .logo{
+    width: 3rem;
+    height: 3rem;
+  }
 }

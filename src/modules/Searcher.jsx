@@ -2,6 +2,7 @@ import * as React from "react";
 import '../styles/searcher.scss';
 import SearchInput from "./Search-input";
 import Paginator from "./Paginator";
+import VacancyDescription from "./Vacancy-description";
 
 class Searcher extends React.Component{
 
@@ -11,18 +12,43 @@ class Searcher extends React.Component{
       vacancies: [],
       selectedPageIndex: 0,
       filterLink: '',
+      vacancyPageObject: {},
     }
 
     this.getSelectedPage = this.getSelectedPage.bind(this);
     this.setVacancies = this.setVacancies.bind(this);
+    this.generateVacancy = this.generateVacancy.bind(this);
+    this.determinePayment = this.determinePayment.bind(this);
+
+    this.responseDatabase = [];
+
   }
 
   componentDidMount(){
     this.setVacancies();
+    this.revealVacancyDescription()
   }
 
   componentDidUpdate(){
     this.updateVacancy()
+    this.revealVacancyDescription();
+  }
+
+  //allows us to see vacancy description
+  revealVacancyDescription(){
+    const vacancyLinks = document.querySelectorAll('.job-name');
+    const vacanciesBlock = document.querySelector('.show-vacancies-wrapper');
+    const vacancyDescriptionBlock = document.querySelector('.vacancy-description-block');
+    const filtersAsideMenu = document.querySelector('.filters-aside-menu');
+
+    vacancyLinks.forEach((vacancy) => {
+      vacancy.addEventListener('click', (event) => {
+        this.setState({vacancyPageObject: this.responseDatabase[Number(event.target.id) - 1]});
+        vacanciesBlock.style.display = 'none';
+        filtersAsideMenu.style.display = 'none';
+        vacancyDescriptionBlock.style.display = 'block';
+      })
+    })
   }
 
 
@@ -32,6 +58,7 @@ class Searcher extends React.Component{
     const response = await this.requestVacancies(link + url);
 
     if(response){
+      this.responseDatabase = response;
       this.setState({vacancies: response.map((item, index) => {
         return this.generateVacancy(item, index + 1);
       })}) 
@@ -89,9 +116,9 @@ class Searcher extends React.Component{
       <div className="result-wrapper" key={num}>
           <div className="result-block">
             <div className="result-inner-block">
-              <a href="#" className="job-name">
+              <p className="job-name" id={num}>
                 {obj.profession}
-              </a>
+              </p>
               <img className="favourite" src="./assets/img/star-not-selected.png" alt="favourite" />
               <div className="conditions">
                 <p className="salary-offer">{this.determinePayment(obj)} {obj.currency}</p>
@@ -122,8 +149,10 @@ class Searcher extends React.Component{
       return this.state.vacancies.slice(4, 8);
     }else if(this.state.selectedPageIndex === 2){
       return this.state.vacancies.slice(8, 12);
-    }else{
+    }else if(this.state.selectedPageIndex === 3){
       return this.state.vacancies.slice(12, 16);
+    }else if(this.state.selectedPageIndex === 4){
+      return this.state.vacancies.slice(16, 20);
     }
   }
 
@@ -131,9 +160,12 @@ class Searcher extends React.Component{
   render(){
     return(
       <section className="search-and-result">
-       <SearchInput />
-        {this.showVacanciesAccordingToSelectedPage()}
-        <Paginator vacanciesLength={this.state.vacancies.length} getSelectedPage={this.getSelectedPage}/>
+       <div className="show-vacancies-wrapper">
+          <SearchInput />
+          {this.showVacanciesAccordingToSelectedPage()}
+          <Paginator vacanciesLength={this.state.vacancies.length} getSelectedPage={this.getSelectedPage}/>
+       </div>
+        <VacancyDescription vacancyObject={this.state.vacancyPageObject} generateVacancy={this.generateVacancy} determinePayment={this.determinePayment}/>
       </section>
     )
   }

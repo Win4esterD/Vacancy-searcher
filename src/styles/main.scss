@@ -3,3 +3,10 @@ main{
   margin: 2.5rem 0 0 10.125rem;
   gap: 1.75rem;
 }
+
+@media (max-width: 384px){
+
+  main{
+    margin-left: 4rem;
+  }
+}

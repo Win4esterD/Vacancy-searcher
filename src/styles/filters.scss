@@ -33,10 +33,7 @@
 .drop-all{
   @include fontTemplate('Inter', normal, 500, 0.875rem, 1.25rem);
   color: #ACADB9;
-
-  img{
-    cursor: pointer;
-  }
+  cursor: pointer;
 }
 
 .industry{
@@ -57,10 +54,10 @@
   height: 2.625rem;
   background: #FFFFFF;
   border: 1px solid #D5D6DC;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   font-family: 'Inter';
   color: #ACADB9;
-  padding-left: 10px;
+  padding-left: 0.625rem;
   background: url('../../public/assets/img/selection-arrow.png') no-repeat right;
   background-position-x: 14.8125rem;
   -webkit-appearance: none;
@@ -72,10 +69,10 @@
   height: 2.625rem;
   background: #FFFFFF;
   border: 1px solid #D5D6DC;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   font-family: 'Inter';
   color: #ACADB9;
-  padding-left: 7px;
+  padding-left: 0.4375rem;
 
 }
 
@@ -92,8 +89,8 @@
 }
 
 .salary-counter{
-  width: 275px;
-  height: 42px;
+  width: 17.1875rem;
+  height: 2.625rem;
   background: #FFFFFF;
   border: 1px solid #D5D6DC;
   border-radius: 8px;
@@ -140,7 +137,7 @@ input[type=number]::-webkit-outer-spin-button {
   width: 17.1875rem;
   height: 2.5rem;
   background: #5E96FC;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: none;
   @include fontTemplate('Inter', normal, 500, 0.875rem, 1.3125rem);
   text-align: center;
@@ -148,3 +145,57 @@ input[type=number]::-webkit-outer-spin-button {
   cursor: pointer;
 }
 
+@media (max-width: 1232px){
+  .up-down-min-arrows{
+    top: 11.4rem;
+  }
+
+  .up-down-max-arrows{
+    top: 14.5rem;
+  }
+}
+
+@media (max-width: 1002px){
+  .up-down-min-arrows{
+    top: 11.7rem;
+  }
+
+  .up-down-max-arrows{
+    top: 14.8rem;
+  }
+}
+
+@media (max-width: 848px){
+  .up-down-min-arrows{
+    top: 12.1rem;
+  }
+
+  .up-down-max-arrows{
+    top: 15.2rem;
+  }
+}
+
+@media (max-width: 780px){
+  .up-down-min-arrows{
+    display: none;
+  }
+
+  .up-down-max-arrows{
+    display: none;
+  }
+}
+
+@media (max-width: 702px){
+  #industry-selector{
+    font-size: 1.2rem;
+    background: url('../../public/assets/img/selection-arrow.png') no-repeat right;
+    background-size: 1.8rem 1.8rem;
+  }
+}
+
+@media (max-width: 386px){
+  .cross{
+    width: 1rem;
+    height: 1rem;
+  }
+}
