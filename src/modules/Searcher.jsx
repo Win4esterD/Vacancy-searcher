@@ -65,6 +65,7 @@ class Searcher extends React.Component{
     }
   }
 
+  //updates vacancies view according to new request
   updateVacancy(){
     const filterButton = document.querySelector('.filters-submit');
     filterButton.addEventListener('click', () => {
@@ -154,6 +155,7 @@ class Searcher extends React.Component{
     }else if(this.state.selectedPageIndex === 4){
       return this.state.vacancies.slice(16, 20);
     }
+
   }
 
 

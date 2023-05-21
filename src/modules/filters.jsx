@@ -14,6 +14,7 @@ class Filters extends React.Component{
     this.addNumberToMaxInput = this.addNumberToMaxInput.bind(this);
     this.substractNumberFromMaxInput = this.substractNumberFromMaxInput.bind(this);
     this.acceptFilters = this.acceptFilters.bind(this);
+    this.resetFilters = this.resetFilters.bind(this);
   }
 
   async componentDidMount(){
@@ -87,6 +88,21 @@ class Filters extends React.Component{
     }
   }
 
+  resetPages(){
+    const pages = document.querySelectorAll('.page-number');
+
+    pages.forEach((page, index) => {
+      if(index === 0){
+        page.setAttribute('id', '#page-selected');
+        page.className = 'page page-number first-page';
+      }else if (index >= 3){
+        page.className = 'page page-number';
+      }else{
+        page.className = 'page page-number hidden';
+      }
+    })
+  }
+
   acceptFilters(){
     const industry = document.querySelector('.industry-select');
     const minInput = document.querySelector('.min-counter');
@@ -103,10 +119,20 @@ class Filters extends React.Component{
     }
 
     const resultLink = `?payment_from=${minSalary}&&payment_to=${maxSalary}${keyword}${industryQuery}&&published=1`;
+    this.resetPages();
     this.props.getFilters(resultLink);
+  }
 
-    const page = document.querySelector('.first-page');
-    
+  resetFilters(){
+    const minCounter = document.querySelector('.min-counter');
+    const maxCounter = document.querySelector('.max-counter');
+    const searchField = document.querySelector('.search');
+    const industrySelect = document.querySelector('.industry-select');
+
+    minCounter.value = '';
+    maxCounter.value = '';
+    searchField.value = '';
+    industrySelect.value = "Выберите отрасль";
   }
 
   render(){
@@ -116,7 +142,7 @@ class Filters extends React.Component{
           <div className="filter-menu">
             <div className="filter-menu-head">
               <p className="filters">Фильтры</p>
-              <p className="drop-all">Сбросить все <span><img className="cross" src="./assets/img/cross.png" alt="cross" /></span></p>
+              <p className="drop-all" onClick={this.resetFilters}>Сбросить все <span><img className="cross" src="./assets/img/cross.png" alt="cross" /></span></p>
             </div>
             <div className="industry">
               <p className="industry-header">Отрасль</p>
